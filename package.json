@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.13.3",
     "morgan": "^1.10.0",
+    "net": "^1.0.2",
     "request": "^2.88.2"
   },
   "devDependencies": {
@@ -28,7 +29,7 @@
     "nodemon": "^2.0.12"
   },
   "scripts": {
-    "dev": "nodemon ./server/server.js --exec babel-node --ignore ./client",
+    "dev": "nodemon ./server/server.js --exec babel-node --ignore ./client --ignore ./chatClient",
     "prebuild": "cd client && npm run build",
     "build": "babel server --out-dir build",
     "build:server": "babel server --out-dir build"
