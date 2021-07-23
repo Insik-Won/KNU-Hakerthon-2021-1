@@ -9,6 +9,9 @@ import { MONGO_URI, isProduction } from "./config";
 // Routes
 import userRoute from "./routes/api/user";
 import authRoute from "./routes/api/auth";
+import partyRoute from "./routes/api/party";
+import partyonRoute from "./routes/api/partyon";
+import missionsRoute from "./routes/api/missions";
 
 const app = express();
 
@@ -24,6 +27,9 @@ app.use(express.json());
 
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/party", partyRoute);
+app.use("/api/party", partyonRoute);
+app.use("/api/missions", missionsRoute);
 
 mongoose
 	.connect(MONGO_URI, {

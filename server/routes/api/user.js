@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import createUpload from "../../middleware/upload";
 import { JWT_SECRET } from "../../config";
 
 // Helper Function
@@ -12,6 +13,9 @@ const signAsync = (payload, secretOrPrivateKey, option) => {
 		});
 	});
 };
+
+// Middleware
+const userImageUpload = createUpload("partyUserImages");
 
 // Model
 import User from "../../models/user";
@@ -36,8 +40,8 @@ router.get("/", async (req, res) => {
 // @desc    Register a user
 // @access  public
 
-router.post("/", async (req, res) => {
-	const { name, email, password } = req.body;
+router.post("/", userImageUpload.single("img"), async (req, res) => {
+	const { name, email, password, description } = req.body;
 
 	if (!name || !email || !password) {
 		return res.status(400).json({ msg: "모든 필드를 채워주세요." });
@@ -54,6 +58,8 @@ router.post("/", async (req, res) => {
 		name,
 		email,
 		password: hash,
+		description,
+		img: (req.file && req.file.location) || undefined,
 	});
 
 	const token = await signAsync({ id: newUser.id }, JWT_SECRET, {
@@ -67,6 +73,8 @@ router.post("/", async (req, res) => {
 			name: newUser.name,
 			email: newUser.email,
 			role: newUser.role,
+			img: newUser.img,
+			description: newUser.description,
 		},
 	});
 });

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { DEFAULT_IMAGE_URL } from "../config";
 
 const UserSchema = new mongoose.Schema({
 	name: {
@@ -23,13 +24,13 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		defaults: Date.now,
 	},
-	profile: {
-		url: {
-			type: String,
-		},
-		description: {
-			type: String,
-		},
+	img: {
+		type: String,
+		default: DEFAULT_IMAGE_URL,
+	},
+	description: {
+		type: String,
+		defaults: "",
 	},
 	parties: [
 		{

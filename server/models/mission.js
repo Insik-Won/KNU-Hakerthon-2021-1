@@ -17,6 +17,10 @@ const MissionSchema = new mongoose.Schema({
 		ref: "missionSet",
 		required: true,
 	},
+	timer: {
+		type: String,
+		default: 0,
+	},
 });
 
 const Mission = mongoose.model("mission", MissionSchema);

@@ -7,6 +7,7 @@ const MissionSetSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
+		defaults: "",
 	},
 	creator: {
 		type: mongoose.SchemaTypes.ObjectId,
@@ -24,6 +25,6 @@ const MissionSetSchema = new mongoose.Schema({
 	],
 });
 
-const MissionSet = mongoose.Model("missionSet", MissionSetSchema);
+const MissionSet = mongoose.model("missionSet", MissionSetSchema);
 
 export default MissionSet;

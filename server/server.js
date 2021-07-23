@@ -1,11 +1,9 @@
 import app from "./app";
-import chatApp from "./chatApp";
 import { PORT } from "./config";
+import partyApp from "./partyApp";
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	console.log(`Server on: ${PORT}`);
 });
 
-chatApp.listen(PORT + 1, () => {
-	console.log(`Chat Server on: ${PORT + 1}`);
-});
+partyApp.init(server);

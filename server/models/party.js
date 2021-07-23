@@ -5,6 +5,9 @@ const PartySchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	description: {
+		type: String,
+	},
 	host: {
 		type: mongoose.SchemaTypes.ObjectId,
 		required: true,
@@ -22,14 +25,22 @@ const PartySchema = new mongoose.Schema({
 	],
 	startedAt: {
 		type: Date,
+		default: new Date(0),
 	},
 	endedAt: {
 		type: Date,
+		default: new Date(0),
 	},
 	whoWin: {
 		type: mongoose.SchemaTypes.ObjectId,
 		ref: "user",
 	},
+	missionSets: [
+		{
+			type: mongoose.SchemaTypes.ObjectId,
+			ref: "missionSet",
+		},
+	],
 	missions: [
 		{
 			mission: {
@@ -42,21 +53,30 @@ const PartySchema = new mongoose.Schema({
 			},
 			isWon: {
 				type: Boolean,
-				defaults: false,
+				default: false,
 			},
 			agree: {
 				type: Number,
-				defaults: 0,
+				default: 0,
 			},
-			comfirmImg: {
+			confirmFile: {
 				type: String,
+				default: "",
 			},
 			amplifiedBy: {
 				type: Number,
-				defaults: 1,
+				default: 1,
 			},
 		},
 	],
+	prizeImage: {
+		type: String,
+		default: "",
+	},
+	prizeDescription: {
+		type: String,
+		default: "",
+	},
 	createdAt: {
 		type: Date,
 		defaults: Date.now,
@@ -64,5 +84,7 @@ const PartySchema = new mongoose.Schema({
 });
 
 const Party = mongoose.model("party", PartySchema);
+
+Party.deleteMany().then(() => console.log("party deleted"));
 
 export default Party;
